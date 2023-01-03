@@ -9,13 +9,20 @@ app.use(express.json());
 
 app.use(cors());
 
+const PORT = process.env.PORT || 3000;
+const DB_HOST = process.env.DB_HOST || 'localhost';
+const DB_USER = process.env.DB_USER || 'root';
+const DB_PASSWORD = process.env.DB_PASSWORD || '1234';
+const DB_DATABASE = process.env.DB_DATABASE || 'quiz';
+const DB_PORT = process.env.DB_PORT || 3306;
+
 // establecemos los parámetros de la conexión
 const connection = mysql2.createConnection({
-    host: 'containers-us-west-157.railway.app',
-    user: 'root',
-    password: 'UFcIRLtExycTnx7UXl1H',
-    database: 'railway',
-    port: 7330
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_DATABASE,
+    port: DB_PORT
 });
 
 // probamos la conexión
@@ -97,7 +104,6 @@ app.delete('/api/usuarios/:id', (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log('Server on Port ' + PORT);
 });
